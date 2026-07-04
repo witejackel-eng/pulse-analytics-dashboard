@@ -30,6 +30,14 @@ Open [http://localhost:3000](http://localhost:3000). Sign in with one of the
 seeded demo accounts (see below) or continue with Google once OAuth
 credentials are configured.
 
+> The repo also includes a plain `.env` with a non-secret placeholder
+> `DATABASE_URL`. It exists purely so `prisma generate` has something to
+> resolve during `npm install`/`npm run build` even before you've configured a
+> real database (locally or on a hosting provider) — it's never used to
+> connect to anything, and your real `DATABASE_URL` in `.env.local` (or set in
+> your host's dashboard) always takes precedence. See [`DEPLOYMENT.md`](./DEPLOYMENT.md#prisma--vercel-build-failures)
+> if you hit a Prisma `Validation Error Count: 1` during deployment.
+
 ### Demo accounts
 
 | Email               | Password       | Role    |
@@ -49,6 +57,12 @@ npm run db:push     # push the schema to your database
 npm run db:seed      # seed realistic demo data (12 months of revenue/traffic,
                       # 120 customers, 64 deals, system metrics, logs, etc.)
 npm run db:studio    # browse the database with Prisma Studio
+```
+
+These `db:*` scripts (unlike `db:generate`/`postinstall`) load `.env.local` via
+`dotenv-cli`, so they target the real database you've configured there rather
+than the placeholder in `.env` — the Prisma CLI doesn't read `.env.local` on
+its own.
 ```
 
 **No live database? The app still works.** Every read in

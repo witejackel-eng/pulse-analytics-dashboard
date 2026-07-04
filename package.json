@@ -7,12 +7,13 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "type-check": "tsc --noEmit",
     "postinstall": "prisma generate",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev",
-    "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:push": "dotenv -c -- prisma db push",
+    "db:migrate": "dotenv -c -- prisma migrate dev",
+    "db:seed": "dotenv -c -- tsx prisma/seed.ts",
+    "db:studio": "dotenv -c -- prisma studio"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -61,6 +62,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.20",
     "prisma": "^6.19.3",

@@ -30,8 +30,14 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files
+# .env is committed on purpose — it holds only a non-secret placeholder
+# DATABASE_URL so `prisma generate` has a value to resolve during install/build
+# even before a real database is configured (see DEPLOYMENT.md). Real secrets
+# go in .env.local (git-ignored) or your hosting provider's env var settings,
+# both of which take precedence over .env.
+.env.local
+.env.*.local
 
 # vercel
 .vercel
