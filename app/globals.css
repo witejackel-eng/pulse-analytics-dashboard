@@ -1,0 +1,158 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --radius: 0.625rem;
+
+  /* Base surfaces — graphite / charcoal scale */
+  --bg-base: #08090b;
+  --bg-sunken: #050506;
+  --bg-surface: #0f1013;
+  --bg-surface-2: #14161a;
+  --bg-elevated: #1a1c20;
+  --bg-overlay: #1e2025;
+  --bg-hover: #1c1e23;
+  --bg-active: #23262c;
+
+  /* Borders */
+  --border-subtle: #1b1d21;
+  --border-default: #26282e;
+  --border-strong: #33363d;
+  --border-focus: #4c8dff;
+
+  /* Text hierarchy — neutral gray / soft white */
+  --text-primary: #f5f6f7;
+  --text-secondary: #a5a8b1;
+  --text-tertiary: #74777f;
+  --text-disabled: #45474d;
+  --text-inverse: #0a0a0b;
+
+  /* Accents — used only to communicate meaning, never decoration */
+  --accent-blue: #4c8dff;
+  --accent-blue-dim: #1d3a6e;
+  --accent-emerald: #2fd88b;
+  --accent-emerald-dim: #103d29;
+  --accent-amber: #f5a623;
+  --accent-amber-dim: #4a340d;
+  --accent-red: #f3556a;
+  --accent-red-dim: #4a1420;
+  --accent-purple: #a78bfa;
+  --accent-purple-dim: #33255e;
+
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+}
+
+@theme inline {
+  --color-background: var(--bg-base);
+  --color-foreground: var(--text-primary);
+
+  --color-bg-base: var(--bg-base);
+  --color-bg-sunken: var(--bg-sunken);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-surface-2: var(--bg-surface-2);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-bg-hover: var(--bg-hover);
+  --color-bg-active: var(--bg-active);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-focus: var(--border-focus);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-disabled: var(--text-disabled);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-dim: var(--accent-blue-dim);
+  --color-accent-emerald: var(--accent-emerald);
+  --color-accent-emerald-dim: var(--accent-emerald-dim);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-amber-dim: var(--accent-amber-dim);
+  --color-accent-red: var(--accent-red);
+  --color-accent-red-dim: var(--accent-red-dim);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-purple-dim: var(--accent-purple-dim);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --animate-fade-in: fade-in 0.4s ease-out;
+  --animate-slide-up: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-shimmer: shimmer 2s linear infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+* {
+  border-color: var(--border-default);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent-blue-dim);
+  color: var(--text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 8px;
+  border: 2px solid var(--bg-base);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-disabled);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.mono-nums {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-grid-line {
+  background-image:
+    linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
