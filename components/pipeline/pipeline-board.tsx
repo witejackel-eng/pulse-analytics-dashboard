@@ -1,15 +1,7 @@
 import { Badge } from "@/components/ui/badge";
+import { STAGE_ACCENT } from "@/lib/constants/stages";
 import { formatCurrency } from "@/lib/utils";
 import { STAGES, type DealRecord } from "@/lib/data/pipeline";
-
-const STAGE_ACCENT: Record<string, string> = {
-  LEAD: "border-t-text-disabled",
-  QUALIFIED: "border-t-accent-blue",
-  PROPOSAL: "border-t-accent-purple",
-  NEGOTIATION: "border-t-accent-amber",
-  CLOSED_WON: "border-t-accent-emerald",
-  CLOSED_LOST: "border-t-accent-red",
-};
 
 export function PipelineBoard({ deals }: { deals: DealRecord[] }) {
   return (

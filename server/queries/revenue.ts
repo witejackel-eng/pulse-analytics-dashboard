@@ -1,28 +1,31 @@
 import { prisma } from "@/lib/prisma";
 import { revenueForDays, revenueKpis, type RevenuePoint } from "@/lib/data/revenue";
+import { tryQuery } from "@/server/try-query";
 
 export async function getRevenueSeries(days: number): Promise<RevenuePoint[]> {
-  try {
-    const since = new Date();
-    since.setDate(since.getDate() - days);
-    const rows = await prisma.revenue.findMany({
+  const since = new Date();
+  since.setDate(since.getDate() - days);
+
+  const rows = await tryQuery("getRevenueSeries", () =>
+    prisma.revenue.findMany({
       where: { date: { gte: since } },
       orderBy: { date: "asc" },
-    });
-    if (rows.length > 0) {
-      return rows.map((r) => ({
-        date: r.date.toISOString().slice(0, 10),
-        amount: r.amount,
-        mrr: r.mrr,
-        newMrr: r.newMrr,
-        churnedMrr: r.churnedMrr,
-        plan: r.plan,
-      }));
-    }
-  } catch {
-    // No live database connection available — fall back to curated data.
-  }
-  return revenueForDays(days);
+    }).then((r) =>
+      r.length > 0
+        ? r.map((row) => ({
+            date: row.date.toISOString().slice(0, 10),
+            amount: row.amount,
+            mrr: row.mrr,
+            newMrr: row.newMrr,
+            churnedMrr: row.churnedMrr,
+            plan: row.plan,
+          }))
+        : null
+    ),
+    null
+  );
+
+  return rows ?? revenueForDays(days);
 }
 
 export async function getRevenueKpis(days: number) {
@@ -47,8 +50,8 @@ export async function getRevenueKpis(days: number) {
         netNewMrr: Math.round(newMrr - churnedMrr),
       };
     }
-  } catch {
-    // fall through to curated
+  } catch (error) {
+    console.warn("[db-fallback] getRevenueKpis:", error instanceof Error ? error.message : error);
   }
   return revenueKpis(days);
 }

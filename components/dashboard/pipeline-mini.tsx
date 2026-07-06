@@ -1,4 +1,5 @@
 import { formatCurrency } from "@/lib/utils";
+import { STAGE_COLOR } from "@/lib/constants/stages";
 
 interface StageRow {
   stage: string;
@@ -6,15 +7,6 @@ interface StageRow {
   count: number;
   value: number;
 }
-
-const STAGE_COLOR: Record<string, string> = {
-  LEAD: "bg-text-disabled",
-  QUALIFIED: "bg-accent-blue",
-  PROPOSAL: "bg-accent-purple",
-  NEGOTIATION: "bg-accent-amber",
-  CLOSED_WON: "bg-accent-emerald",
-  CLOSED_LOST: "bg-accent-red",
-};
 
 export function PipelineMini({
   stages,
@@ -40,7 +32,7 @@ export function PipelineMini({
         </div>
       </div>
 
-      <div className="flex h-2 overflow-hidden rounded-full">
+      <div className="flex h-2 overflow-hidden rounded-full" role="img" aria-label="Pipeline stages breakdown">
         {stages.map((s) => (
           <div
             key={s.stage}

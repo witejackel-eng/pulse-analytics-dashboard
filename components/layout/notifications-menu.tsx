@@ -36,6 +36,7 @@ export function NotificationsMenu({ initial }: { initial: NotificationRecord[] }
           <button
             onClick={() => setItems((prev) => prev.map((n) => ({ ...n, read: true })))}
             className="flex items-center gap-1 text-[11px] text-text-tertiary hover:text-text-secondary"
+            aria-label="Mark all notifications as read"
           >
             <CheckCheck className="size-3.5" />
             Mark all read

@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn, formatCurrency, formatRelativeTime } from "@/lib/utils";
+import { SEGMENT_LABEL } from "@/lib/constants/segments";
 import type { CustomerRecord } from "@/lib/data/customers";
 
 const STATUS_VARIANT: Record<string, "emerald" | "blue" | "amber" | "red"> = {
@@ -30,13 +31,6 @@ const STATUS_VARIANT: Record<string, "emerald" | "blue" | "amber" | "red"> = {
   TRIAL: "blue",
   PAST_DUE: "amber",
   CHURNED: "red",
-};
-
-const SEGMENT_LABEL: Record<string, string> = {
-  ENTERPRISE: "Enterprise",
-  MID_MARKET: "Mid-market",
-  SMB: "SMB",
-  STARTUP: "Startup",
 };
 
 function initials(name: string) {

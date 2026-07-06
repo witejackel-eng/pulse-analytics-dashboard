@@ -2,6 +2,7 @@
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { ChartTooltip } from "@/components/charts/chart-tooltip";
+import { SEGMENT_LABEL, SEGMENT_COLOR } from "@/lib/constants/segments";
 import { formatCurrency } from "@/lib/utils";
 
 interface SegmentRow {
@@ -10,22 +11,8 @@ interface SegmentRow {
   mrr: number;
 }
 
-const SEGMENT_LABEL: Record<string, string> = {
-  ENTERPRISE: "Enterprise",
-  MID_MARKET: "Mid-market",
-  SMB: "SMB",
-  STARTUP: "Startup",
-};
-
-const SEGMENT_COLOR: Record<string, string> = {
-  ENTERPRISE: "var(--accent-blue)",
-  MID_MARKET: "var(--accent-purple)",
-  SMB: "var(--accent-emerald)",
-  STARTUP: "var(--accent-amber)",
-};
-
 export function SegmentationChart({ data }: { data: SegmentRow[] }) {
-  const chartData = data.map((d) => ({ ...d, label: SEGMENT_LABEL[d.segment] }));
+  const chartData = data.map((d) => ({ ...d, label: SEGMENT_LABEL[d.segment] ?? d.segment }));
 
   return (
     <ResponsiveContainer width="100%" height="100%">

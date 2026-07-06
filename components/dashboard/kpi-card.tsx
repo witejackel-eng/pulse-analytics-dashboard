@@ -92,3 +92,5 @@ export function KpiCard({ label, value, format, changePct, invertColor, sparklin
     </Card>
   );
 }
+
+export const MemoizedKpiCard = React.memo(KpiCard);

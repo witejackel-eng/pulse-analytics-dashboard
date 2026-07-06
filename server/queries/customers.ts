@@ -1,32 +1,34 @@
 import { prisma } from "@/lib/prisma";
 import { getCuratedCustomers, customerSummary, type CustomerRecord } from "@/lib/data/customers";
+import { tryQuery } from "@/server/try-query";
 
 export async function getCustomers(): Promise<CustomerRecord[]> {
-  try {
-    const rows = await prisma.customer.findMany({ orderBy: { mrr: "desc" } });
-    if (rows.length > 0) {
-      return rows.map((c) => ({
-        id: c.id,
-        name: c.name,
-        company: c.company,
-        email: c.email,
-        avatarSeed: c.avatarSeed,
-        plan: c.plan,
-        mrr: c.mrr,
-        ltv: c.ltv,
-        status: c.status,
-        segment: c.segment,
-        country: c.country,
-        healthScore: c.healthScore,
-        sessionsCount: c.sessionsCount,
-        lastActiveAt: c.lastActiveAt.toISOString(),
-        createdAt: c.createdAt.toISOString(),
-      }));
-    }
-  } catch {
-    // No live database connection available — fall back to curated data.
-  }
-  return getCuratedCustomers();
+  const rows = await tryQuery("getCustomers", () =>
+    prisma.customer.findMany({ orderBy: { mrr: "desc" } }).then((r) =>
+      r.length > 0
+        ? r.map((c) => ({
+            id: c.id,
+            name: c.name,
+            company: c.company,
+            email: c.email,
+            avatarSeed: c.avatarSeed,
+            plan: c.plan,
+            mrr: c.mrr,
+            ltv: c.ltv,
+            status: c.status,
+            segment: c.segment,
+            country: c.country,
+            healthScore: c.healthScore,
+            sessionsCount: c.sessionsCount,
+            lastActiveAt: c.lastActiveAt.toISOString(),
+            createdAt: c.createdAt.toISOString(),
+          }))
+        : null
+    ),
+    null
+  );
+
+  return rows ?? getCuratedCustomers();
 }
 
 export async function getCustomerSummary() {
@@ -50,8 +52,8 @@ export async function getCustomerSummary() {
         bySegment,
       };
     }
-  } catch {
-    // fall through
+  } catch (error) {
+    console.warn("[db-fallback] getCustomerSummary:", error instanceof Error ? error.message : error);
   }
   return customerSummary();
 }

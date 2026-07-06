@@ -23,7 +23,10 @@ interface ApiKeyRow {
 }
 
 function randomKeySuffix() {
-  return Array.from({ length: 24 }, () => "abcdefghijklmnopqrstuvwxyz0123456789"[Math.floor(Math.random() * 36)]).join("");
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  const bytes = new Uint8Array(24);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, (b) => chars[b % chars.length]).join("");
 }
 
 export function ApiKeysManager({ initial }: { initial: ApiKeyRow[] }) {

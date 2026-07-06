@@ -46,7 +46,14 @@ export function PreferencesForm() {
             <p className="text-[13px] text-text-primary">Reduce motion</p>
             <p className="text-[12px] text-text-tertiary">Minimize chart and transition animations</p>
           </div>
-          <Switch checked={reduceMotion} onCheckedChange={(v) => { setReduceMotion(v); toast.success(v ? "Motion reduced" : "Motion restored"); }} />
+          <Switch
+            checked={reduceMotion}
+            onCheckedChange={(v) => {
+              setReduceMotion(v);
+              document.documentElement.setAttribute("data-reduce-motion", String(v));
+              toast.success(v ? "Motion reduced" : "Motion restored");
+            }}
+          />
         </div>
       </SettingsSection>
 

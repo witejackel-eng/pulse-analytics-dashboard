@@ -43,11 +43,3 @@ export function formatRelativeTime(date: Date | string): string {
   const diffDay = Math.round(diffHr / 24);
   return `${diffDay}d ago`;
 }
-
-export function seededRandom(seed: number) {
-  let value = seed;
-  return () => {
-    value = (value * 9301 + 49297) % 233280;
-    return value / 233280;
-  };
-}

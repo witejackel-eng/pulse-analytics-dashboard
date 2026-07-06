@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { StatusDot } from "@/components/ui/badge";
+import { STATUS_LABEL, STATUS_VARIANT } from "@/lib/constants/service-status";
 import type { ServiceStatus } from "@/lib/data/system";
 
 interface ServiceRow {
@@ -8,20 +9,6 @@ interface ServiceRow {
   uptime90d: number;
   region: string;
 }
-
-const STATUS_LABEL: Record<ServiceStatus, string> = {
-  OPERATIONAL: "Operational",
-  DEGRADED: "Degraded performance",
-  PARTIAL_OUTAGE: "Partial outage",
-  MAJOR_OUTAGE: "Major outage",
-};
-
-const STATUS_VARIANT: Record<ServiceStatus, "emerald" | "amber" | "red"> = {
-  OPERATIONAL: "emerald",
-  DEGRADED: "amber",
-  PARTIAL_OUTAGE: "red",
-  MAJOR_OUTAGE: "red",
-};
 
 export function ServicesGrid({ services }: { services: ServiceRow[] }) {
   return (

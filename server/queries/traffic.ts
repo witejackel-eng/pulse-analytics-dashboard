@@ -1,27 +1,30 @@
 import { prisma } from "@/lib/prisma";
 import { trafficForDays, type TrafficPoint, DEVICE_BREAKDOWN, countryBreakdown, FUNNEL_STEPS, retentionCurve } from "@/lib/data/traffic";
+import { tryQuery } from "@/server/try-query";
 
 export async function getTrafficSeries(days: number): Promise<TrafficPoint[]> {
-  try {
-    const since = new Date();
-    since.setDate(since.getDate() - days);
-    const rows = await prisma.trafficDaily.findMany({
+  const since = new Date();
+  since.setDate(since.getDate() - days);
+
+  const rows = await tryQuery("getTrafficSeries", () =>
+    prisma.trafficDaily.findMany({
       where: { date: { gte: since } },
       orderBy: { date: "asc" },
-    });
-    if (rows.length > 0) {
-      return rows.map((r) => ({
-        date: r.date.toISOString().slice(0, 10),
-        sessions: r.sessions,
-        pageviews: r.pageviews,
-        visitors: r.visitors,
-        conversionRate: r.conversionRate,
-      }));
-    }
-  } catch {
-    // No live database connection available — fall back to curated data.
-  }
-  return trafficForDays(days);
+    }).then((r) =>
+      r.length > 0
+        ? r.map((row) => ({
+            date: row.date.toISOString().slice(0, 10),
+            sessions: row.sessions,
+            pageviews: row.pageviews,
+            visitors: row.visitors,
+            conversionRate: row.conversionRate,
+          }))
+        : null
+    ),
+    null
+  );
+
+  return rows ?? trafficForDays(days);
 }
 
 export function getDeviceBreakdown() {

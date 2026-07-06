@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { currentValue, type MetricName } from "@/lib/data/system";
 
 export const dynamic = "force-dynamic";
@@ -9,6 +10,11 @@ function jitter(base: number, spread: number) {
 }
 
 export async function GET() {
+  const session = await auth();
+  if (!session) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const encoder = new TextEncoder();
   let interval: ReturnType<typeof setInterval>;
 
@@ -41,6 +47,7 @@ export async function GET() {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache, no-transform",
       Connection: "keep-alive",
+      "X-Accel-Buffering": "no",
     },
   });
 }

@@ -1,30 +1,6 @@
-import { UserPlus, LogIn, ArrowUpCircle, ArrowDownCircle, XCircle, CreditCard, Zap, AlertTriangle, Sparkles } from "lucide-react";
 import { formatRelativeTime } from "@/lib/utils";
-import type { EventRecord, EventType } from "@/lib/data/events";
-
-const EVENT_ICON: Record<EventType, typeof UserPlus> = {
-  SIGNUP: UserPlus,
-  LOGIN: LogIn,
-  UPGRADE: ArrowUpCircle,
-  DOWNGRADE: ArrowDownCircle,
-  CHURN: XCircle,
-  PAYMENT: CreditCard,
-  API_CALL: Zap,
-  ERROR: AlertTriangle,
-  FEATURE_USE: Sparkles,
-};
-
-const EVENT_COLOR: Record<EventType, string> = {
-  SIGNUP: "text-accent-emerald",
-  LOGIN: "text-accent-blue",
-  UPGRADE: "text-accent-emerald",
-  DOWNGRADE: "text-accent-amber",
-  CHURN: "text-accent-red",
-  PAYMENT: "text-accent-blue",
-  API_CALL: "text-accent-purple",
-  ERROR: "text-accent-red",
-  FEATURE_USE: "text-accent-purple",
-};
+import { EVENT_ICON, EVENT_COLOR } from "@/lib/constants/events";
+import type { EventRecord } from "@/lib/data/events";
 
 export function ActivityFeed({ events }: { events: EventRecord[] }) {
   return (

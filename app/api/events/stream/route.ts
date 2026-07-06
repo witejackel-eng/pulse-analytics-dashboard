@@ -1,8 +1,14 @@
+import { auth } from "@/auth";
 import { generateLiveEvent } from "@/lib/data/events";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
+  const session = await auth();
+  if (!session) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const encoder = new TextEncoder();
   let interval: ReturnType<typeof setInterval>;
   let heartbeat: ReturnType<typeof setInterval>;
@@ -34,6 +40,7 @@ export async function GET() {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache, no-transform",
       Connection: "keep-alive",
+      "X-Accel-Buffering": "no",
     },
   });
 }

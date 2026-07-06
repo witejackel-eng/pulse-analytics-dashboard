@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
+import { DateRangeProvider } from "@/components/date-range-context";
 import { getNotifications } from "@/server/queries/notifications";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -14,8 +15,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
   };
 
   return (
-    <DashboardShell user={user} notifications={notifications}>
-      {children}
-    </DashboardShell>
+    <DateRangeProvider>
+      <DashboardShell user={user} notifications={notifications}>
+        {children}
+      </DashboardShell>
+    </DateRangeProvider>
   );
 }

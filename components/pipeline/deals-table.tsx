@@ -1,16 +1,8 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { STAGE_VARIANT } from "@/lib/constants/stages";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { STAGES, type DealRecord } from "@/lib/data/pipeline";
-
-const STAGE_VARIANT: Record<string, "default" | "blue" | "purple" | "amber" | "emerald" | "red"> = {
-  LEAD: "default",
-  QUALIFIED: "blue",
-  PROPOSAL: "purple",
-  NEGOTIATION: "amber",
-  CLOSED_WON: "emerald",
-  CLOSED_LOST: "red",
-};
 
 const STAGE_LABEL = Object.fromEntries(STAGES.map((s) => [s.id, s.label]));
 

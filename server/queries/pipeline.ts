@@ -1,24 +1,26 @@
 import { prisma } from "@/lib/prisma";
 import { getCuratedDeals, pipelineSummary as curatedPipelineSummary, forecastSeries, STAGES, type DealRecord } from "@/lib/data/pipeline";
+import { tryQuery } from "@/server/try-query";
 
 export async function getDeals(): Promise<DealRecord[]> {
-  try {
-    const rows = await prisma.deal.findMany({ orderBy: { amount: "desc" } });
-    if (rows.length > 0) {
-      return rows.map((d) => ({
-        id: d.id,
-        name: d.name,
-        amount: d.amount,
-        stage: d.stage,
-        probability: d.probability,
-        closeDate: d.closeDate.toISOString(),
-        owner: d.owner,
-      }));
-    }
-  } catch {
-    // No live database connection available — fall back to curated data.
-  }
-  return getCuratedDeals();
+  const rows = await tryQuery("getDeals", () =>
+    prisma.deal.findMany({ orderBy: { amount: "desc" } }).then((r) =>
+      r.length > 0
+        ? r.map((d) => ({
+            id: d.id,
+            name: d.name,
+            amount: d.amount,
+            stage: d.stage,
+            probability: d.probability,
+            closeDate: d.closeDate.toISOString(),
+            owner: d.owner,
+          }))
+        : null
+    ),
+    null
+  );
+
+  return rows ?? getCuratedDeals();
 }
 
 export async function getPipelineSummary() {
@@ -44,8 +46,8 @@ export async function getPipelineSummary() {
         byStage,
       };
     }
-  } catch {
-    // fall through
+  } catch (error) {
+    console.warn("[db-fallback] getPipelineSummary:", error instanceof Error ? error.message : error);
   }
   return curatedPipelineSummary();
 }
