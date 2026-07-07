@@ -1,5 +1,14 @@
 # Pulse — Real-time Analytics Platform
 
+[![Live Demo](https://img.shields.io/badge/demo-pulse--aadi--project.vercel.app-brightgreen?style=flat-square)](https://pulse-aadi-project.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
+[![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?style=flat-square&logo=prisma)](https://www.prisma.io)
+[![NextAuth](https://img.shields.io/badge/NextAuth-v5-blue?style=flat-square)](https://authjs.dev)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](./LICENSE)
+
+
 Pulse is an enterprise-grade, real-time analytics dashboard — the kind of
 operational surface used by product, growth, and infrastructure teams to
 watch revenue, customers, and system health in one place. It's a full-stack
