@@ -293,13 +293,13 @@ export function CustomersTable({ data }: { data: CustomerRecord[] }) {
           Showing {table.getRowModel().rows.length} of {filteredData.length} customers
         </span>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+          <Button variant="outline" size="icon" aria-label="Previous page" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
             <ChevronLeft className="size-3.5" />
           </Button>
           <span>
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount() || 1}
           </span>
-          <Button variant="outline" size="icon" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          <Button variant="outline" size="icon" aria-label="Next page" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
             <ChevronRight className="size-3.5" />
           </Button>
         </div>

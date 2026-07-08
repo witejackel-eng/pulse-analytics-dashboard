@@ -28,15 +28,15 @@ export function ReportsList({ reports }: { reports: ReportRecord[] }) {
             Next: {formatDate(report.nextRunAt, { month: "short", day: "numeric" })}
           </span>
           <div className="flex shrink-0 items-center gap-1">
-            <Button variant="ghost" size="icon" onClick={() => toast.success(`Running "${report.name}" now`)}>
+            <Button variant="ghost" size="icon" aria-label="Run report" onClick={() => toast.success(`Running "${report.name}" now`)}>
               <Play className="size-3.5" />
             </Button>
-            <Button variant="ghost" size="icon" onClick={() => toast.success("Export started — check your downloads")}>
+            <Button variant="ghost" size="icon" aria-label="Export report" onClick={() => toast.success("Export started — check your downloads")}>
               <Download className="size-3.5" />
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" aria-label="More actions">
                   <MoreHorizontal className="size-3.5" />
                 </Button>
               </DropdownMenuTrigger>

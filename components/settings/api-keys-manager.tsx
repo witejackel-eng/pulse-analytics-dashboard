@@ -80,6 +80,7 @@ export function ApiKeysManager({ initial }: { initial: ApiKeyRow[] }) {
                   <Button
                     variant="ghost"
                     size="icon"
+                    aria-label="Copy API key"
                     onClick={() => {
                       navigator.clipboard.writeText(newKey);
                       toast.success("Copied to clipboard");
@@ -149,7 +150,7 @@ export function ApiKeysManager({ initial }: { initial: ApiKeyRow[] }) {
                 <TableCell className="text-text-tertiary">{formatRelativeTime(key.createdAt)}</TableCell>
                 <TableCell className="text-text-tertiary">{key.lastUsedAt ? formatRelativeTime(key.lastUsedAt) : "Never"}</TableCell>
                 <TableCell>
-                  <Button variant="ghost" size="icon" onClick={() => revokeKey(key.id)}>
+                  <Button variant="ghost" size="icon" aria-label="Delete API key" onClick={() => revokeKey(key.id)}>
                     <Trash2 className="size-3.5 text-accent-red" />
                   </Button>
                 </TableCell>

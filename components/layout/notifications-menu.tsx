@@ -21,7 +21,7 @@ export function NotificationsMenu({ initial }: { initial: NotificationRecord[] }
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
+        <Button variant="ghost" size="icon" aria-label="Notifications" className="relative">
           <Bell className="size-4" />
           {unread > 0 && (
             <span className="absolute right-1 top-1 flex size-3.5 items-center justify-center rounded-full bg-accent-red text-[9px] font-semibold text-white">

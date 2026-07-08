@@ -71,7 +71,7 @@ export default function BillingSettingsPage() {
                 <TableCell className="tabular-nums">{invoice.amount}</TableCell>
                 <TableCell><Badge variant="emerald">{invoice.status}</Badge></TableCell>
                 <TableCell>
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" aria-label="Download invoice">
                     <Download className="size-3.5" />
                   </Button>
                 </TableCell>
