@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { SystemMetricsPanel } from "@/components/system/system-metrics-panel";
+import { DynamicSystemMetricsPanel } from "@/components/charts/dynamic-charts";
 import { ServicesGrid } from "@/components/system/services-grid";
 import { DeploymentsTable } from "@/components/system/deployments-table";
 import { LogStream } from "@/components/system/log-stream";
@@ -20,7 +20,7 @@ export default async function SystemHealthPage() {
 
   return (
     <div className="flex flex-col gap-5 p-4 sm:p-6">
-      <SystemMetricsPanel initialSeries={initialSeries} />
+      <DynamicSystemMetricsPanel initialSeries={initialSeries} />
 
       <Card>
         <CardHeader>

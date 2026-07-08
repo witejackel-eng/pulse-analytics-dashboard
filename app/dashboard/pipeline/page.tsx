@@ -1,6 +1,5 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { KpiCard } from "@/components/dashboard/kpi-card";
-import { ForecastChart } from "@/components/charts/forecast-chart";
+import { DynamicKpiCard, DynamicForecastChart } from "@/components/charts/dynamic-charts";
 import { PipelineBoard } from "@/components/pipeline/pipeline-board";
 import { DealsTable } from "@/components/pipeline/deals-table";
 import { getDeals, getPipelineSummary, getForecast } from "@/server/queries/pipeline";
@@ -12,10 +11,10 @@ export default async function PipelinePage() {
   return (
     <div className="flex flex-col gap-5 p-4 sm:p-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard label="Open pipeline" value={summary.openValue} format="currency-compact" changePct={5.4} icon="trending-up" accent="blue" />
-        <KpiCard label="Weighted pipeline" value={summary.weightedValue} format="currency-compact" changePct={3.9} icon="dollar" accent="purple" />
-        <KpiCard label="Win rate" value={summary.winRate} format="percent" changePct={2.1} icon="activity" accent="emerald" />
-        <KpiCard label="Avg. deal size" value={avgDealSize} format="currency-compact" changePct={-1.2} icon="users" accent="amber" />
+        <DynamicKpiCard label="Open pipeline" value={summary.openValue} format="currency-compact" changePct={5.4} icon="trending-up" accent="blue" />
+        <DynamicKpiCard label="Weighted pipeline" value={summary.weightedValue} format="currency-compact" changePct={3.9} icon="dollar" accent="purple" />
+        <DynamicKpiCard label="Win rate" value={summary.winRate} format="percent" changePct={2.1} icon="activity" accent="emerald" />
+        <DynamicKpiCard label="Avg. deal size" value={avgDealSize} format="currency-compact" changePct={-1.2} icon="users" accent="amber" />
       </div>
 
       <Card>
@@ -24,7 +23,7 @@ export default async function PipelinePage() {
           <CardDescription>Actuals vs. projected close, next quarter</CardDescription>
         </CardHeader>
         <CardContent className="h-72">
-          <ForecastChart data={forecast} />
+          <DynamicForecastChart data={forecast} />
         </CardContent>
       </Card>
 

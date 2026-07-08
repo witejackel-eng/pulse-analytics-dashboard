@@ -3,11 +3,7 @@
 import * as React from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardAction } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { KpiCard } from "@/components/dashboard/kpi-card";
-import { RevenueChart } from "@/components/charts/revenue-chart";
-import { TrafficChart } from "@/components/charts/traffic-chart";
-import { DeviceDonut } from "@/components/charts/device-donut";
-import { CountryBars } from "@/components/charts/country-bars";
+import { DynamicKpiCard, DynamicRevenueChart, DynamicTrafficChart, DynamicDeviceDonut, DynamicCountryBars } from "@/components/charts/dynamic-charts";
 import { ActivityFeed } from "@/components/dashboard/activity-feed";
 import { LiveEventFeed } from "@/components/dashboard/live-event-feed";
 import { SystemStatusWidget } from "@/components/dashboard/system-status-widget";
@@ -55,7 +51,7 @@ export function OverviewContent({ days }: { days: number }) {
   return (
     <div className="flex flex-col gap-5 p-4 sm:p-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard
+        <DynamicKpiCard
           label="Revenue (30d)"
           value={revenueKpis.totalRevenue}
           format="currency-compact"
@@ -64,7 +60,7 @@ export function OverviewContent({ days }: { days: number }) {
           icon="dollar"
           accent="blue"
         />
-        <KpiCard
+        <DynamicKpiCard
           label="MRR"
           value={revenueKpis.currentMrr}
           format="currency-compact"
@@ -73,7 +69,7 @@ export function OverviewContent({ days }: { days: number }) {
           icon="trending-up"
           accent="emerald"
         />
-        <KpiCard
+        <DynamicKpiCard
           label="Sessions (30d)"
           value={trafficTotal}
           format="compact"
@@ -82,7 +78,7 @@ export function OverviewContent({ days }: { days: number }) {
           icon="users"
           accent="purple"
         />
-        <KpiCard
+        <DynamicKpiCard
           label="Conversion rate"
           value={avgConversion}
           format="percent-2"
@@ -109,7 +105,7 @@ export function OverviewContent({ days }: { days: number }) {
             </div>
           </CardHeader>
           <CardContent className="h-72">
-            <RevenueChart data={revenueSeries} />
+            <DynamicRevenueChart data={revenueSeries} />
           </CardContent>
         </Card>
 
@@ -119,7 +115,7 @@ export function OverviewContent({ days }: { days: number }) {
             <CardDescription>Share of sessions</CardDescription>
           </CardHeader>
           <CardContent>
-            <DeviceDonut data={devices} />
+            <DynamicDeviceDonut data={devices} />
           </CardContent>
         </Card>
       </div>
@@ -131,7 +127,7 @@ export function OverviewContent({ days }: { days: number }) {
             <CardDescription>Sessions and unique visitors over the selected period</CardDescription>
           </CardHeader>
           <CardContent className="h-64">
-            <TrafficChart data={trafficSeries} />
+            <DynamicTrafficChart data={trafficSeries} />
           </CardContent>
         </Card>
 
@@ -141,7 +137,7 @@ export function OverviewContent({ days }: { days: number }) {
             <CardDescription>Sessions by country</CardDescription>
           </CardHeader>
           <CardContent>
-            <CountryBars data={countries} />
+            <DynamicCountryBars data={countries} />
           </CardContent>
         </Card>
       </div>
