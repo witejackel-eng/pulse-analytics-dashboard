@@ -13,7 +13,8 @@
     "db:push": "dotenv -c -- prisma db push",
     "db:migrate": "dotenv -c -- prisma migrate dev",
     "db:seed": "dotenv -c -- tsx prisma/seed.ts",
-    "db:studio": "dotenv -c -- prisma studio"
+    "db:studio": "dotenv -c -- prisma studio",
+    "test": "vitest run"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -65,6 +66,7 @@
     "prisma": "^6.19.3",
     "tailwindcss": "^4",
     "tsx": "^4.23.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.10"
   }
 }
